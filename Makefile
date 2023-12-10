@@ -1,0 +1,2 @@
+all:
+	./process-all.sh
