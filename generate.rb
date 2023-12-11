@@ -60,6 +60,10 @@ for img, d, e in input_data
   e.gsub!(/Zimmer~(\d+)~/, "Zimmer \\1")
   e.gsub!(/~(\d+)~(\d+)~Uhr/, "\\1.\\2 Uhr")
 
+  # Cosmetic fixes to explanations
+  e = e.sub(/Ding\? Damit/, 'Ding? - Damit') # p30
+  e = e.sub(/Müller ist\? Nein/, 'Müller ist? - Nein') # p38
+
   # fix newlines in defs
   if d =~ /\Ader.*die/m
     d = d.gsub(/\nd(er|ie)/, "~d\\1").tr("\n", " ").
@@ -93,6 +97,14 @@ for img, d, e in input_data
     d = d.tr('/', "\n")
     e = e.tr('/', "\n")
   end
+
+  # Cosmetic touch-ups for a few things
+  d = d.sub(/raus\(heraus/, 'raus- (heraus') # p49
+  d = d.sub(/runter\(herunter/, 'runter- (herunter') # p49
+  d = d.sub(/Kriminaldie Krimi/, "Kriminal-\ndie Krimi") # p57
+  d = d.sub(/Reception, en/, 'Reception, -en') # p74
+  d = d.sub(/Serviceangestellte, n /, 'Serviceangestellte, -n ') # p80
+  d = d.sub(/überübertreiben,/, "über-\nübertreiben,") # p89
 
   # scanning for mistakes... TODO: remove later
   #next if e =~ /\A1\./
