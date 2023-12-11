@@ -41,9 +41,6 @@ for img, d, e in input_data
     e = e.join("\n")
   end
 
-  # skip all alpha headings
-  next if d.size == 1 && e.size.zero?
-
   # fix up newlines in examples
   if e =~ /\A(\d+)\./
     start = $1.to_i
