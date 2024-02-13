@@ -134,7 +134,6 @@ File.open("#{page}.html", "w") do |html|
       table td { text-align: left; border: 1px solid #aaa; padding: 0.2em 0.5em; }
       p { max-width: 800px; }
     </style>
-</head>
 EOF
   html.puts "</head>"
   html.puts "<body>"
