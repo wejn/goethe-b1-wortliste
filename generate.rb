@@ -45,7 +45,7 @@ for img, d, e in input_data
   if e =~ /\A(\d+)\./
     start = $1.to_i
     # list
-    e = e.split(/\d+\.\s*/)[1..-1].map { |x| x.strip.tr("\n", " ") }.
+    e = e.split(/^\d+\.\s*/)[1..-1].map { |x| x.strip.tr("\n", " ") }.
       inject([[], start]) { |(o,i),x| [o + ["#{i}. #{x}"], i+1] }.
       first.join("\n")
   else
