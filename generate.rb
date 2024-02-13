@@ -26,10 +26,6 @@ end
 csv_data = []
 html_data = []
 for img, d, e in input_data
-  # escape gnarly corner-cases
-  e.gsub!(/(\d+)\.(\d+)\s+Uhr/, "~\\1~\\2~Uhr")
-  e.gsub!(/Zimmer (\d+)/, "Zimmer~\\1~")
-
   # fix broken lists (item numbers in front)
   if e =~ /\A(([0-9]\.\n)+)\n/m
     m = $1
@@ -45,17 +41,13 @@ for img, d, e in input_data
   if e =~ /\A(\d+)\./
     start = $1.to_i
     # list
-    e = e.split(/^\d+\.\s*/)[1..-1].map { |x| x.strip.tr("\n", " ") }.
+    e = e.split(/^\d{1,2}\.\s*/)[1..-1].map { |x| x.strip.tr("\n", " ") }.
       inject([[], start]) { |(o,i),x| [o + ["#{i}. #{x}"], i+1] }.
       first.join("\n")
   else
     # sentence
     e = e.tr("\n", " ")
   end
-
-  # un-escape gnarly corner-cases
-  e.gsub!(/Zimmer~(\d+)~/, "Zimmer \\1")
-  e.gsub!(/~(\d+)~(\d+)~Uhr/, "\\1.\\2 Uhr")
 
   # Cosmetic fixes to explanations
   e = e.sub(/Ding\? Damit/, 'Ding? - Damit') # p30
