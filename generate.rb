@@ -26,6 +26,9 @@ end
 csv_data = []
 html_data = []
 for img, d, e in input_data
+  # fix p. 39-r
+  e = e.sub(/1 Auf dem Brief fehlt der Absender/, "1. Auf dem Brief fehlt der Absender")
+
   # fix broken lists (item numbers in front)
   if e =~ /\A(([0-9]\.\n)+)\n/m
     m = $1
