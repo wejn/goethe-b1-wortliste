@@ -115,6 +115,9 @@ for img, d, e in input_data
     "<td>#{e.gsub(/\n/,"<br />\n")}</td></tr>"
 end
 
+git_version = `git describe --always --dirty`.strip
+generated_at = Time.now.strftime("%Y-%m-%d %H:%M:%S %Z")
+
 File.open("#{page}.html", "w") do |html|
   html.puts '<!DOCTYPE html>'
   html.puts '<html lang="de">'
@@ -138,6 +141,7 @@ EOF
   html.puts "</head>"
   html.puts "<body>"
   html.puts "<h1>Goethe Zertifikat B1 Wortliste</h1>"
+  html.puts "<p>Version #{git_version} -- generated at #{generated_at}</p>"
   html.puts <<-'EOF'
 <p>
 All of this text is extracted from
@@ -185,5 +189,6 @@ using this in any commercial capacity.
 end
 
 File.open("#{page}.csv", "w") do |c|
+  c.write("Goethe Zertifikat B1 Wortliste,Version #{git_version} -- generated at #{generated_at}\n")
   c.write(CSV.generate_lines(csv_data))
 end
