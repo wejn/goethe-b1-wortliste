@@ -97,6 +97,8 @@ for img, d, e in input_data
   d = d.sub(/Reception, en/, 'Reception, -en') # p74
   d = d.sub(/Serviceangestellte, n /, 'Serviceangestellte, -n ') # p80
   d = d.sub(/überübertreiben,/, "über-\nübertreiben,") # p89
+  d = d.sub(/festnehmen nimmt fest, nahm fest, hat festgenommen\./,
+	    "festnehmen, nimmt fest, nahm fest, hat festgenommen") # p40
 
   # scanning for mistakes... TODO: remove later
   #next if e =~ /\A1\./
